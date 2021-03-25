@@ -1,0 +1,54 @@
+---
+title: "Final_prj_exploration"
+author: "Hannah Coles"
+date: "3/25/2021"
+output: word_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
+library(ggplot2)
+bulltrout=read.csv("BLT_2018_timespent.csv",header=TRUE)
+View(bulltrout)
+names(bulltrout)
+length(bulltrout$ï..FishID)
+class(bulltrout$ï..FishID)
+class(bulltrout$Arm.1)
+class(bulltrout$Arm.2)
+class(bulltrout$Total.Time.in.Both.Arms)
+class(bulltrout$Trm1)
+class(bulltrout$Trm2)
+
+hist(bulltrout$Arm.1)
+hist(bulltrout$Arm.2)
+hist(bulltrout$Total.Time.in.Both.Arms)
+ggplot(bulltrout,aes(x=Arm.1))+geom_histogram(binwidth=5)+theme_classic()
+ggplot(bulltrout,aes(x=Arm.2))+geom_histogram(binwidth=5)+theme_classic()
+ggplot(bulltrout,aes(x=Total.Time.in.Both.Arms))+geom_histogram(binwidth=5)+theme_classic()
+
+
+boxplot(Arm.1~Trm1,data=bulltrout)
+boxplot(Arm.2~Trm2,data=bulltrout)
+boxplot(Total.Time.in.Both.Arms~Trm1,data=bulltrout)
+boxplot(Total.Time.in.Both.Arms~Trm2,data=bulltrout)
+boxplot(Arm.1~Trm1+Trm2,data=bulltrout)
+boxplot(Total.Time.in.Both.Arms~Trm1+Trm2,data=bulltrout)
+
+dotchart(bulltrout$Total.Time.in.Both.Arms)
+
+qqnorm(bulltrout$Arm.1)
+qqline(bulltrout$Arm.1)
+qqnorm(bulltrout$Arm.2)
+qqline(bulltrout$Arm.2)
+qqnorm(bulltrout$Total.Time.in.Both.Arms)
+qqline(bulltrout$Total.Time.in.Both.Arms)
+ggplot(bulltrout)+geom_qq(aes(sample=Arm.1))+theme_classic()+geom_qq_line(aes(sample=Arm.1))
+ggplot(bulltrout)+geom_qq(aes(sample=Arm.2))+theme_classic()+geom_qq_line(aes(sample=Arm.2))
+ggplot(bulltrout)+geom_qq(aes(sample=Total.Time.in.Both.Arms))+theme_classic()+geom_qq_line(aes(sample=Total.Time.in.Both.Arms))
+
+pairs(bulltrout[,2:4])
+library(GGally)
+ggpairs(bulltrout[,2:4])
+
+```
